@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCTO — Federico Pellegrini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0d0b; --surface: #161410; --border: #2a2520;
+      --accent: #e8a455; --accent-dim: #a0682a;
+      --text: #e8e0d4; --text-muted: #7a7065; --text-dim: #4a4540; --warm: #c8714a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(14,13,11,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-header { padding: 10rem 3rem 4rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); margin-bottom: 4rem; }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; line-height: 1; color: var(--text); }
+    .page-title em { font-style: italic; color: var(--accent); }
+
+    .content { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+    .placeholder-box {
+      border: 1px dashed var(--accent-dim);
+      padding: 4rem 3rem;
+      text-align: center;
+      background: var(--surface);
+    }
+    .placeholder-box .ph-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .placeholder-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .placeholder-box p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .pcto-fields {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+    .field-block { background: var(--bg); padding: 2rem 2.5rem; }
+    .field-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+    .field-value { font-size: 1rem; color: var(--text-muted); font-style: italic; }
+
+    .footer-strip { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; }
+    .footer-strip p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.1em; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .content { padding: 0 1.5rem 4rem; }
+      .pcto-fields { grid-template-columns: 1fr; }
+      .footer-strip { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">FP_</a>
+    <ul class="nav-links">
+      <li><a href="index.html#chi-sono">Chi sono</a></li>
+      <li><a href="materie.html">Materie</a></li>
+      <li><a href="pcto.html" class="active">PCTO</a></li>
+      <li><a href="educazione-civica.html">Ed. Civica</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="section-label">Percorso per le Competenze Trasversali</div>
+    <h1 class="page-title">PCTO &<br><em>Orientamento</em></h1>
+  </div>
+
+  <div class="content">
+
+    <div class="placeholder-box">
+      <div class="ph-label">Da personalizzare</div>
+      <h3>La tua esperienza aziendale</h3>
+      <p>Inserisci qui i dettagli della tua esperienza di stage: nome dell'azienda, sede, ruolo svolto, mansioni, competenze acquisite e una riflessione personale.</p>
+    </div>
+
+    <div class="pcto-fields">
+      <div class="field-block">
+        <div class="field-label">Nome azienda</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block">
+        <div class="field-label">Sede</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block">
+        <div class="field-label">Ruolo svolto</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block">
+        <div class="field-label">Periodo</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block" style="grid-column: 1 / -1;">
+        <div class="field-label">Mansioni principali</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block">
+        <div class="field-label">Hard skills acquisite</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block">
+        <div class="field-label">Soft skills acquisite</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+      <div class="field-block" style="grid-column: 1 / -1;">
+        <div class="field-label">Riflessione personale</div>
+        <div class="field-value">— da inserire —</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer-strip">
+    <p>© 2026 Federico Pellegrini — IIS Marconi Pieralisi, Jesi</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="materie.html">Materie</a>
+      <a href="educazione-civica.html">Ed. Civica</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </footer>
+
+</body>
+</html>

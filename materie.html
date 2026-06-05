@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Materie — Federico Pellegrini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0d0b;
+      --surface: #161410;
+      --border: #2a2520;
+      --accent: #e8a455;
+      --accent-dim: #a0682a;
+      --text: #e8e0d4;
+      --text-muted: #7a7065;
+      --text-dim: #4a4540;
+      --warm: #c8714a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(14,13,11,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-header {
+      padding: 10rem 3rem 4rem;
+      max-width: 1100px; margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4rem;
+    }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; line-height: 1; color: var(--text); }
+    .page-title em { font-style: italic; color: var(--accent); }
+
+    .content { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+    .area-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+
+    .materie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .materia-card {
+      background: var(--bg);
+      padding: 2rem 2.5rem;
+      transition: background 0.25s;
+    }
+    .materia-card:hover { background: var(--surface); }
+    .materia-card.full { grid-column: 1 / -1; }
+    .materia-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .materia-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .materia-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .materia-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .tag-accent { border-color: var(--accent-dim); color: var(--accent); }
+
+    .footer-strip {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-strip p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.1em; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .content { padding: 0 1.5rem 4rem; }
+      .materie-grid { grid-template-columns: 1fr; }
+      .footer-strip { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">FP_</a>
+    <ul class="nav-links">
+      <li><a href="index.html#chi-sono">Chi sono</a></li>
+      <li><a href="materie.html" class="active">Materie</a></li>
+      <li><a href="pcto.html">PCTO</a></li>
+      <li><a href="educazione-civica.html">Ed. Civica</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="section-label">5ª CM — A.S. 2025/2026</div>
+    <h1 class="page-title">Le mie<br><em>materie</em></h1>
+  </div>
+
+  <div class="content">
+
+    <div class="area-label">Area Scientifica / Tecnica</div>
+    <div class="materie-grid">
+
+      <div class="materia-card full">
+        <div class="materia-num">4.1</div>
+        <div class="materia-name">Informatica</div>
+        <p class="materia-desc">La materia di indirizzo principale. Durante il quinto anno mi sono concentrato sullo sviluppo di applicazioni web full-stack, sulla progettazione di basi di dati relazionali e sulla realizzazione di un progetto reale in collaborazione con un ente esterno. Ho lavorato in team sperimentando le dinamiche di un vero gruppo di sviluppo, con gestione del codice tramite Git, suddivisione tra frontend e backend e revisione collegiale del lavoro.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Full-Stack Web</span>
+          <span class="tag tag-accent">Database</span>
+          <span class="tag">Git</span>
+          <span class="tag">Frontend</span>
+          <span class="tag">Backend</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.2</div>
+        <div class="materia-name">Sistemi e Reti</div>
+        <p class="materia-desc">La materia che approfondisce l'infrastruttura su cui poggia tutto il mondo digitale: dalle reti locali fino a Internet, passando per la sicurezza informatica e la virtualizzazione.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Crittografia</span>
+          <span class="tag">Certificati digitali</span>
+          <span class="tag">HTTPS</span>
+          <span class="tag">Reti</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.3</div>
+        <div class="materia-name">TPSIT</div>
+        <p class="materia-desc">Tecnologie e Progettazione di Sistemi Informatici e di TLC. Mi ha avvicinato al mondo della programmazione concorrente, dei sistemi distribuiti e dei protocolli di rete a livello applicativo.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Android Studio</span>
+          <span class="tag">Sistemi distribuiti</span>
+          <span class="tag">Protocolli</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.4</div>
+        <div class="materia-name">GPOI</div>
+        <p class="materia-desc">Gestione Progetto e Organizzazione d'Impresa. Una materia ponte tra l'informatica e il mondo aziendale: insegna come si organizza un progetto reale, come si stima il lavoro e come si gestisce un team.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">D.Lgs. 81/08</span>
+          <span class="tag">ISO 9001</span>
+          <span class="tag">Project management</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.5</div>
+        <div class="materia-name">Matematica</div>
+        <p class="materia-desc">La materia che fornisce gli strumenti di ragionamento e di calcolo che servono a tutte le altre discipline tecniche.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Calcolo combinatorio</span>
+          <span class="tag">Statistica</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.6</div>
+        <div class="materia-name">Intelligenza Artificiale</div>
+        <p class="materia-desc">La materia di curvatura che caratterizza in modo unico il percorso dell'IIS Marconi Pieralisi, approfondendo i fondamenti e le applicazioni dell'IA.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Curvatura ITS</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="area-label">Area Umanistica</div>
+    <div class="materie-grid">
+
+      <div class="materia-card">
+        <div class="materia-num">4.7</div>
+        <div class="materia-name">Italiano</div>
+        <p class="materia-desc">Letteratura italiana del Novecento e oltre, con attenzione ai movimenti poetici e alle correnti della prosa moderna.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Giuseppe Ungaretti</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.8</div>
+        <div class="materia-name">Storia</div>
+        <p class="materia-desc">Il Novecento e le sue trasformazioni geopolitiche, con un focus sui conflitti e sugli equilibri internazionali del secondo dopoguerra.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Guerra Fredda</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.9</div>
+        <div class="materia-name">Inglese</div>
+        <p class="materia-desc">Lingua straniera con approfondimenti legati all'ambito tecnico-informatico e alla comunicazione professionale in contesti internazionali.</p>
+        <div class="materia-tags">
+          <span class="tag">Technical English</span>
+        </div>
+      </div>
+
+      <div class="materia-card">
+        <div class="materia-num">4.10</div>
+        <div class="materia-name">Scienze Motorie</div>
+        <p class="materia-desc">Educazione fisica e conoscenza del corpo umano attraverso l'attività motoria.</p>
+        <div class="materia-tags">
+          <span class="tag tag-accent">Apparato cardiocircolatorio</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="footer-strip">
+    <p>© 2026 Federico Pellegrini — IIS Marconi Pieralisi, Jesi</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="pcto.html">PCTO</a>
+      <a href="educazione-civica.html">Ed. Civica</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </footer>
+
+</body>
+</html>
