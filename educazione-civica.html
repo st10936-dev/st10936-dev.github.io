@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Educazione Civica — Federico Pellegrini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0d0b; --surface: #161410; --border: #2a2520;
+      --accent: #e8a455; --accent-dim: #a0682a;
+      --text: #e8e0d4; --text-muted: #7a7065; --text-dim: #4a4540; --warm: #c8714a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(14,13,11,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-header { padding: 10rem 3rem 4rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); margin-bottom: 4rem; }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; line-height: 1; color: var(--text); }
+    .page-title em { font-style: italic; color: var(--accent); }
+
+    .content { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+    .edciv-intro {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; margin-bottom: 4rem;
+    }
+    .edciv-intro p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
+    .edciv-intro p strong { color: var(--text); font-weight: 500; }
+    .edciv-box {
+      background: var(--surface); border: 1px solid var(--border); padding: 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .edciv-box-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+    .edciv-box-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text); }
+
+    .placeholder-box {
+      border: 1px dashed var(--accent-dim); padding: 4rem 3rem; text-align: center; background: var(--surface);
+    }
+    .placeholder-box .ph-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .placeholder-box h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text); margin-bottom: 1rem; }
+    .placeholder-box p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; max-width: 500px; margin: 0 auto; }
+
+    /* ─── SAGGIO ─── */
+    .essay { margin-top: 1rem; }
+    .essay-block {
+      border-top: 1px solid var(--border);
+      padding-top: 2.5rem;
+      margin-top: 2.5rem;
+    }
+    .essay-block:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    .essay-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 0.8rem;
+    }
+    .essay-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+    .essay-block p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1.1rem;
+    }
+    .essay-block p strong { color: var(--text); font-weight: 500; }
+    .essay-block p em { color: var(--accent); font-style: italic; }
+
+    .essay-examples {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+    .example-card { background: var(--bg); padding: 1.8rem 2rem; }
+    .example-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.6rem;
+    }
+    .example-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .example-text strong { color: var(--text); font-weight: 500; }
+
+    .essay-callout {
+      background: var(--surface);
+      border-left: 2px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .essay-callout p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .essay-examples { grid-template-columns: 1fr; }
+    }
+
+    .footer-strip { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; }
+    .footer-strip p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.1em; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .content { padding: 0 1.5rem 4rem; }
+      .edciv-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-strip { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">FP_</a>
+    <ul class="nav-links">
+      <li><a href="index.html#chi-sono">Chi sono</a></li>
+      <li><a href="materie.html">Materie</a></li>
+      <li><a href="pcto.html">FSL</a></li>
+      <li><a href="educazione-civica.html" class="active">Ed. Civica</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="section-label">Percorso interdisciplinare</div>
+    <h1 class="page-title">Educazione<br><em>Civica</em></h1>
+  </div>
+
+  <div class="content">
+
+    <div class="edciv-intro">
+      <div>
+        <p>Il percorso di Educazione Civica del quinto anno è stato costruito attorno al tema <strong>propaganda e censura</strong>: come questi strumenti hanno permesso, nella storia, il controllo dell'opinione pubblica, e come lo stesso meccanismo — sotto nuove forme — riguardi oggi ciascuno di noi nell'uso quotidiano di Internet e dei social network.</p>
+        <p>È un argomento che mi riguarda da vicino, sia come studente di informatica che come persona che vive e si informa in rete quotidianamente.</p>
+      </div>
+      <div class="edciv-box">
+        <div class="edciv-box-label">Titolo del percorso</div>
+        <div class="edciv-box-title">Propaganda e censura: dal controllo dell'informazione alle fake news</div>
+      </div>
+    </div>
+
+    <div class="essay">
+
+      <div class="essay-block">
+        <div class="essay-num">01 — Il controllo dell'opinione pubblica</div>
+        <h3>Propaganda e censura nei regimi totalitari</h3>
+        <p>Nella storia recente, propaganda e censura si sono dimostrate strumenti fondamentali per il controllo dell'opinione pubblica. Senza di esse, difficilmente molti regimi totalitari avrebbero ottenuto il consenso che li ha caratterizzati. Attraverso il controllo delle informazioni e la diffusione di messaggi studiati per influenzare la popolazione, questi regimi sono riusciti a <strong>consolidare il proprio potere</strong> e a limitare il dissenso.</p>
+      </div>
+
+      <div class="essay-block">
+        <div class="essay-num">02 — La propaganda come arma</div>
+        <h3>Il consenso nei conflitti tra Stati</h3>
+        <p>La propaganda, tuttavia, non è stata utilizzata soltanto nei regimi dittatoriali: ha avuto un ruolo importante anche durante i conflitti tra Stati. Le guerre, infatti, non si combattono soltanto con le armi, ma anche con le idee e con la capacità di convincere la popolazione della giustezza della propria causa. Senza campagne propagandistiche efficaci, molti Paesi avrebbero avuto maggiori difficoltà a ottenere il sostegno dei cittadini nei periodi di guerra.</p>
+
+        <div class="essay-examples">
+          <div class="example-card">
+            <div class="example-label">Esempio — Stati Uniti</div>
+            <div class="example-text">Il celebre manifesto raffigurante lo <strong>Zio Sam</strong> con la scritta <em>"I Want You"</em>, utilizzato per incoraggiare l'arruolamento nell'esercito.</div>
+          </div>
+          <div class="example-card">
+            <div class="example-label">Esempio — Germania nazista</div>
+            <div class="example-text">L'ascesa di <strong>Adolf Hitler</strong>, favorita da una massiccia diffusione delle proprie idee attraverso giornali, manifesti, radio e gli altri mezzi di comunicazione dell'epoca.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="essay-block">
+        <div class="essay-num">03 — Un contesto trasformato</div>
+        <h3>Da pochi controllori a chiunque abbia una connessione</h3>
+        <p>Oggi il contesto è profondamente cambiato. In passato la diffusione delle informazioni era controllata principalmente da governi, giornali e televisioni; oggi, invece, grazie a Internet e ai social network, <strong>chiunque può pubblicare contenuti</strong> e raggiungere un vasto pubblico in pochi secondi. Questa possibilità rappresenta un importante strumento di libertà, ma comporta anche dei rischi.</p>
+        <p>Notizie false, informazioni manipolate e contenuti fuorvianti possono diffondersi molto rapidamente, influenzando le opinioni delle persone. Personaggi pubblici, influencer e utenti con un grande seguito sono spesso in grado di orientare il pensiero di migliaia o addirittura milioni di persone: per questo il fenomeno delle <strong>fake news</strong> è diventato uno dei problemi più rilevanti della comunicazione contemporanea.</p>
+      </div>
+
+      <div class="essay-block">
+        <div class="essay-num">04 — Conclusione</div>
+        <h3>La responsabilità individuale</h3>
+        <p>Di fronte a questa realtà, è fondamentale sviluppare uno <strong>spirito critico</strong> e imparare a verificare l'affidabilità delle fonti prima di credere o condividere una notizia.</p>
+        <div class="essay-callout">
+          <p>Ogni individuo ha la responsabilità di utilizzare i mezzi di comunicazione in modo consapevole, evitando di contribuire alla diffusione di informazioni false o dannose.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="footer-strip">
+    <p>© 2026 Federico Pellegrini — IIS Marconi Pieralisi, Jesi</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="materie.html">Materie</a>
+      <a href="pcto.html">FSL</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </footer>
+
+</body>
+</html>
